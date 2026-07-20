@@ -1,0 +1,28 @@
+ATLAS AI COACH V5
+
+Eklenenler:
+- Yeni kullanıcı için 3 adımlı akıllı onboarding
+- Profil bilgilerine göre ilk kalori/protein/su/kardiyo hedefi
+- Haftalık kilo, bel, antrenman, kalori ve protein raporu
+- Progressive overload önerileri
+- AI değişiklik merkezi ve onay/reddet akışı
+- Hareket kütüphanesi, teknik ipuçları ve alternatifler
+- Uygulama içi bildirim/görev planı
+- Fotoğraf karşılaştırma ekranı
+- Kişisel rekorlar ve tahmini 1RM
+- Önceki profil, supplement, adetli besin, özel besin araştırma, öneri antrenmanı ve AI sohbet özellikleri korunmuştur.
+
+KURULUM
+1) Mevcut .env.local dosyanızı güvenli bir yere kopyalayın.
+2) Bu paketteki atlas-ai-coach klasörünü yeni klasöre çıkarın.
+3) Eski .env.local dosyanızı yeni klasöre koyun.
+4) Klasörde CMD açın.
+5) npm install
+6) npm run dev
+7) http://localhost:3000
+
+NOTLAR
+- Yeni hesaplarda onboarding otomatik açılır.
+- Mevcut hesaplarda advanced/onboarding kaydı yoksa bir kez açılır; tamamlandıktan sonra buluta kaydolur.
+- Görev ekranı şu an uygulama içi takip yapar. Gerçek tarayıcı push bildirimi, site HTTPS üzerinden yayınlandıktan ve kullanıcı izin verdikten sonra etkinleştirilebilir.
+- Değişiklik Merkezi'nde öneri önce onaylanır. Kalori değişikliği onaylanınca hedef otomatik uygulanır.
