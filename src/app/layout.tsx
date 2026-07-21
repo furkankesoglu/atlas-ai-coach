@@ -35,7 +35,7 @@ const onboardingBootstrap = `
 })();
 `;
 
-// Deployment retry marker: 2026-07-21
+// Deployment retry marker: 2026-07-21T10:00+03:00
 export const metadata: Metadata = {
   title: "ATLAS AI Coach",
   description: "Kişisel antrenman, beslenme ve gelişim takip sistemi",
