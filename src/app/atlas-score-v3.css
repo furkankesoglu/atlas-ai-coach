@@ -1,0 +1,8 @@
+.hero-card > .score{display:none!important}
+.atlas-score-v3{margin-left:auto;min-width:150px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:16px 18px;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:rgba(8,8,10,.58);backdrop-filter:blur(14px);box-shadow:0 14px 38px rgba(0,0,0,.3)}
+.atlas-score-v3 strong{font-size:clamp(42px,5vw,72px);line-height:.95;letter-spacing:-.06em}
+.atlas-score-v3 span{font-size:11px;letter-spacing:.18em;font-weight:800}
+.atlas-score-v3 small{margin-top:6px;font-size:10px;color:var(--muted);letter-spacing:.08em}
+[data-atlas-score-v3-host]{display:block;width:100%}
+.atlas-score-v3-grid{margin-top:18px}
+@media(max-width:760px){.atlas-score-v3{width:100%;margin:18px 0 0;min-width:0}.hero-card{align-items:stretch}.atlas-score-v3-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
