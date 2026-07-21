@@ -36,8 +36,7 @@ export default function AtlasCardioDashboardBridge() {
     const refresh = () => {
       setEntries(readEntries());
       const title = document.querySelector<HTMLElement>(".topbar h1")?.textContent?.trim();
-      const content = title === "Dashboard" ? document.querySelector<HTMLElement>(".content") : null;
-      setTarget(content);
+      setTarget(title === "Dashboard" ? document.querySelector<HTMLElement>(".content") : null);
     };
 
     refresh();
@@ -70,10 +69,10 @@ export default function AtlasCardioDashboardBridge() {
     };
   }, [entries]);
 
-  if (!target || target.querySelector("[data-atlas-cardio-dashboard-host]")) return null;
+  if (!target) return null;
 
   return createPortal(
-    <section className="atlas-cardio-dashboard" data-atlas-cardio-dashboard-host="true">
+    <section className="atlas-cardio-dashboard">
       <div className="atlas-cardio-dashboard-heading">
         <div>
           <p className="eyebrow">CARDIO TRACKING</p>
