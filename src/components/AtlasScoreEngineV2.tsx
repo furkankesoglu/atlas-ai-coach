@@ -112,11 +112,14 @@ function render(state:State){
   const cardioEntries=cardio();
   const s=scores(state,date,cardioEntries);
   const p=progress(state,cardioEntries);
-  value.textContent=String(s.atlas);
+  const nextValue=String(s.atlas);
+  if(value.textContent!==nextValue)value.textContent=nextValue;
+  box.dataset.atlasEngine="v2-stable";
   box.title=`Training ${s.training} · Nutrition ${s.nutrition} · Recovery ${s.recovery} · Discipline ${s.discipline}`;
   let detail=box.querySelector<HTMLElement>("[data-atlas-score-detail]");
   if(!detail){detail=document.createElement("small");detail.dataset.atlasScoreDetail="true";box.appendChild(detail)}
-  detail.textContent=s.atlas>=90?"ELİT GÜN":s.atlas>=75?"GÜÇLÜ İLERLEME":s.atlas>=50?"DEVAM ET":"KAYIT BEKLİYOR";
+  const detailText=s.atlas>=90?"ELİT GÜN":s.atlas>=75?"GÜÇLÜ İLERLEME":s.atlas>=50?"DEVAM ET":"KAYIT BEKLİYOR";
+  if(detail.textContent!==detailText)detail.textContent=detailText;
   let grid=document.querySelector<HTMLElement>("[data-atlas-score-v2-grid]");
   if(!grid){grid=document.createElement("section");grid.dataset.atlasScoreV2Grid="true";grid.className="atlas-score-v2-grid";hero.insertAdjacentElement("afterend",grid)}
   const card=(label:string,val:string,hint:string,key:string)=>`<article class="atlas-score-v2-card" data-atlas-stat="${key}"><span>${label}</span><strong>${val}</strong><small>${hint}</small></article>`;
@@ -134,35 +137,79 @@ function render(state:State){
 export default function AtlasScoreEngineV2(){
   useEffect(()=>{
     let stopped=false;
-    let state=localState();
-    let cloud=false;
-    let lastCloud=0;
-    const refresh=async(force=false)=>{
-      if(!cloud)state=localState();
-      const now=Date.now();
-      if(force||now-lastCloud>4000){
-        lastCloud=now;
-        try{
-          const supabase=getSupabaseBrowserClient();
-          const {data:userData}=await supabase?.auth.getUser()||{data:{user:null}};
-          const user=userData?.user;
-          cloud=Boolean(supabase&&user);
-          if(supabase&&user){
-            const {data}=await supabase.from("atlas_user_state").select("app_state").eq("user_id",user.id).maybeSingle();
-            if(data?.app_state&&typeof data.app_state==="object")state=data.app_state as State;
-          }
-        }catch(error){console.warn("ATLAS skor verisi okunamadı",error)}
+    let state:State={};
+    let mode:"resolving"|"local"|"cloud"="resolving";
+    let lastCloudRead=0;
+    let refreshRunning=false;
+
+    const readCloud=async()=>{
+      const supabase=getSupabaseBrowserClient();
+      const {data:userData}=await supabase?.auth.getUser()||{data:{user:null}};
+      const user=userData?.user;
+      if(!supabase||!user){
+        mode="local";
+        state=localState();
+        return;
       }
-      if(!stopped)render(state);
+      mode="cloud";
+      const {data}=await supabase.from("atlas_user_state").select("app_state").eq("user_id",user.id).maybeSingle();
+      if(data?.app_state&&typeof data.app_state==="object")state=data.app_state as State;
     };
-    const scheduled=()=>{window.setTimeout(()=>void refresh(false),120);window.setTimeout(()=>void refresh(true),1800)};
+
+    const refresh=async(forceCloud=false)=>{
+      if(stopped||refreshRunning)return;
+      refreshRunning=true;
+      try{
+        if(mode==="resolving"){
+          await readCloud();
+          lastCloudRead=Date.now();
+        }else if(mode==="local"){
+          state=localState();
+        }else if(forceCloud||Date.now()-lastCloudRead>8000){
+          await readCloud();
+          lastCloudRead=Date.now();
+        }
+        if(!stopped)render(state);
+      }catch(error){
+        console.warn("ATLAS skor verisi okunamadı",error);
+        if(mode==="local")state=localState();
+        if(!stopped&&mode!=="resolving")render(state);
+      }finally{
+        refreshRunning=false;
+      }
+    };
+
+    let observerTimer:number|undefined;
+    const enforceStableScore=()=>{
+      window.clearTimeout(observerTimer);
+      observerTimer=window.setTimeout(()=>{
+        if(!stopped&&mode!=="resolving")render(state);
+      },0);
+    };
+    const scheduled=()=>{
+      window.setTimeout(()=>void refresh(false),80);
+      window.setTimeout(()=>void refresh(true),1500);
+    };
+
     void refresh(true);
-    const timer=window.setInterval(()=>void refresh(false),2000);
+    const timer=window.setInterval(()=>void refresh(false),1500);
+    const observer=new MutationObserver(enforceStableScore);
+    observer.observe(document.body,{childList:true,subtree:true,characterData:true});
     document.addEventListener("click",scheduled);
     document.addEventListener("change",scheduled);
     document.addEventListener("submit",scheduled);
     window.addEventListener("storage",scheduled);
-    return()=>{stopped=true;window.clearInterval(timer);document.removeEventListener("click",scheduled);document.removeEventListener("change",scheduled);document.removeEventListener("submit",scheduled);window.removeEventListener("storage",scheduled)};
+
+    return()=>{
+      stopped=true;
+      window.clearInterval(timer);
+      window.clearTimeout(observerTimer);
+      observer.disconnect();
+      document.removeEventListener("click",scheduled);
+      document.removeEventListener("change",scheduled);
+      document.removeEventListener("submit",scheduled);
+      window.removeEventListener("storage",scheduled);
+    };
   },[]);
   return null;
 }
