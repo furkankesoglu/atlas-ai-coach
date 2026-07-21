@@ -4,11 +4,13 @@ import "./atlas-v6.css";
 import "./atlas-memory.css";
 import "./atlas-mobile-app.css";
 import "./atlas-nutrition-action.css";
+import "./atlas-supplement-action.css";
 import WorkoutNumberInputFix from "@/components/WorkoutNumberInputFix";
 import AtlasWorkoutCompletionEnhancer from "@/components/AtlasWorkoutCompletionEnhancer";
 import AtlasMemoryCenter from "@/components/AtlasMemoryCenter";
 import AtlasMobileNavigation from "@/components/AtlasMobileNavigation";
 import AtlasNutritionActionBridge from "@/components/AtlasNutritionActionBridge";
+import AtlasSupplementActionBridge from "@/components/AtlasSupplementActionBridge";
 
 export const metadata: Metadata = {
   title: "ATLAS AI Coach",
@@ -30,6 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <AtlasMemoryCenter />
         <AtlasMobileNavigation />
         <AtlasNutritionActionBridge />
+        <AtlasSupplementActionBridge />
         {children}
       </body>
     </html>
