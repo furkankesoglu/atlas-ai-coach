@@ -1,0 +1,87 @@
+.atlas-score-v2-grid{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:12px;
+  margin:14px 0 18px;
+  position:relative;
+  z-index:3;
+}
+
+.atlas-score-v2-card{
+  min-height:112px;
+  padding:17px 16px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(18,23,31,.9),rgba(8,11,16,.78));
+  box-shadow:0 18px 50px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.035);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+
+.atlas-score-v2-card::after{
+  content:"";
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:.42;
+}
+
+.atlas-score-v2-card>span{
+  color:var(--muted);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.13em;
+}
+
+.atlas-score-v2-card>strong{
+  margin-top:8px;
+  color:#f7f8fa;
+  font-size:clamp(24px,2.25vw,38px);
+  line-height:1;
+  letter-spacing:-.04em;
+}
+
+.atlas-score-v2-card>small{
+  margin-top:8px;
+  color:rgba(255,255,255,.54);
+  font-size:10px;
+  line-height:1.35;
+}
+
+.atlas-score-v2-card[data-atlas-stat="streak"]::after{background:linear-gradient(90deg,transparent,#ff6534,transparent)}
+.atlas-score-v2-card[data-atlas-stat="discipline"]::after{background:linear-gradient(90deg,transparent,#a478ff,transparent)}
+.atlas-score-v2-card[data-atlas-stat="recovery"]::after{background:linear-gradient(90deg,transparent,#36a9ff,transparent)}
+.atlas-score-v2-card[data-atlas-stat="nutrition"]::after{background:linear-gradient(90deg,transparent,#36d17c,transparent)}
+.atlas-score-v2-card[data-atlas-stat="training"]::after{background:linear-gradient(90deg,transparent,#f2b84b,transparent)}
+
+.hero-card .score [data-atlas-score-detail]{
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.08em;
+  white-space:nowrap;
+}
+
+@media(max-width:1180px){
+  .atlas-score-v2-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+@media(max-width:680px){
+  .atlas-score-v2-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+    margin-top:10px;
+  }
+  .atlas-score-v2-card{min-height:98px;padding:14px 13px;border-radius:15px}
+  .atlas-score-v2-card>strong{font-size:29px}
+}
