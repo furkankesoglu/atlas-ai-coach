@@ -19,6 +19,7 @@ import AtlasSevenDayWeightChangeBridge from "@/components/AtlasSevenDayWeightCha
 import AtlasSuggestionFreshnessBridge from "@/components/AtlasSuggestionFreshnessBridge";
 import AtlasDailyScoreBridge from "@/components/AtlasDailyScoreBridge";
 
+// Deployment retry marker: 2026-07-21
 export const metadata: Metadata = {
   title: "ATLAS AI Coach",
   description: "Kişisel antrenman, beslenme ve gelişim takip sistemi",
