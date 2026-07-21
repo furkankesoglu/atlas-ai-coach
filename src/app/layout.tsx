@@ -15,6 +15,7 @@ import AtlasNutritionActionBridge from "@/components/AtlasNutritionActionBridge"
 import AtlasSupplementActionBridge from "@/components/AtlasSupplementActionBridge";
 import AtlasCardioTracker from "@/components/AtlasCardioTracker";
 import AtlasCardioDashboardBridge from "@/components/AtlasCardioDashboardBridge";
+import AtlasSevenDayWeightChangeBridge from "@/components/AtlasSevenDayWeightChangeBridge";
 
 export const metadata: Metadata = {
   title: "ATLAS AI Coach",
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <AtlasSupplementActionBridge />
         <AtlasCardioTracker />
         <AtlasCardioDashboardBridge />
+        <AtlasSevenDayWeightChangeBridge />
         {children}
       </body>
     </html>
