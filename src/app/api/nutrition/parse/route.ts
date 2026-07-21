@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
         reasoning: { effort: "minimal" },
         max_output_tokens: 1000,
         instructions: `
-Kullanıcının mesajında aktif beslenme planına eklenmesi istenen net öğünler varsa yalnızca geçerli JSON döndür.
+Kullanıcının mesajında aktif beslenme planına eklenmesi istenen gerçek yiyecek ve içeceklerden oluşan net öğünler varsa yalnızca geçerli JSON döndür.
 Beslenme kaydı yoksa yalnızca null döndür.
 
 JSON biçimi:
@@ -48,11 +48,12 @@ JSON biçimi:
 
 Kurallar:
 - Tarih olarak ${date} kullan.
-- Her besini ayrı bir meals öğesi yap.
+- Her gerçek besini ayrı bir meals öğesi yap.
 - Saat belirtilmişse koru, belirtilmemişse "Öğün" yaz.
 - Gram açıkça verilmişse grams alanına yaz.
-- Adet verilen yumurta, muz, elma gibi ürünlerde makul ortalama gram kullan ve quantity/unitLabel alanlarını da ekle.
-- "Flavor powder", greens, superfoods gibi gramı belirtilmeyen ürünlerde grams 1 kullan.
+- Adet verilen yumurta, muz, elma gibi yiyeceklerde makul ortalama gram kullan ve quantity/unitLabel alanlarını da ekle.
+- Multivitamin, omega-3, D3, B12, Ester-C, bromelain, ZMA, kreatin, collagen/kolajen, greens, detox, digestion, thermo burner, hunger buster, relax gibi supplementleri; kapsül, tablet veya ölçek dozlarını ASLA besin olarak ekleme.
+- Mesaj esas olarak supplement/vitamin kullanım saatlerinden oluşuyorsa null döndür. Öğün öncesi/sonrası ifadeleri tek başına beslenme kaydı sayılmaz.
 - Kullanıcı yalnızca soru soruyorsa veya planı kaydetmek istemiyorsa null döndür.
 - Markdown, açıklama ve kod bloğu kullanma.
 `,
@@ -96,7 +97,7 @@ function extractText(data: any): string {
   if (typeof data?.output_text === "string") return data.output_text;
   if (!Array.isArray(data?.output)) return "";
   return data.output
-    .flatMap((item: any) => Array.isArray(item?.content) ? item.content : [])
+    .flatMap((item: any) => (Array.isArray(item?.content) ? item.content : []))
     .filter((item: any) => item?.type === "output_text" && typeof item?.text === "string")
     .map((item: any) => item.text)
     .join("\n");
