@@ -24,23 +24,32 @@ function parseActiveDate() {
   return input?.value || localToday();
 }
 
+function updateDateCard() {
+  const dateStrong = document.querySelector<HTMLElement>(".time-card strong");
+  if (!dateStrong) return;
+
+  const now = new Date();
+  const weekday = now.toLocaleDateString("tr-TR", { weekday: "long" });
+  const date = now.toLocaleDateString("tr-TR");
+  const nextText = `${weekday.charAt(0).toUpperCase()}${weekday.slice(1)} • ${date}`;
+
+  if (dateStrong.textContent !== nextText) {
+    dateStrong.textContent = nextText;
+  }
+}
+
 export default function AtlasWorkoutCompletionEnhancer() {
   const [toast, setToast] = useState("");
 
   useEffect(() => {
-    const enhance = () => {
-      const dateCard = document.querySelector<HTMLElement>(".time-card");
-      const dateStrong = dateCard?.querySelector<HTMLElement>("strong");
-      if (dateCard && dateStrong) {
-        const now = new Date();
-        const weekday = now.toLocaleDateString("tr-TR", { weekday: "long" });
-        const date = now.toLocaleDateString("tr-TR");
-        dateStrong.textContent = `${weekday.charAt(0).toUpperCase()}${weekday.slice(1)} • ${date}`;
-      }
+    let lastPathSignature = "";
 
-      const pageTitle = Array.from(document.querySelectorAll<HTMLElement>(".topbar h1"))
-        .find((node) => node.textContent?.trim() === "Antrenman");
-      if (!pageTitle) return;
+    const enhance = () => {
+      updateDateCard();
+
+      const pageTitle = document.querySelector<HTMLElement>(".topbar h1");
+      const isWorkoutPage = pageTitle?.textContent?.trim() === "Antrenman";
+      if (!isWorkoutPage) return;
 
       const panel = document.querySelector<HTMLElement>(".content > .panel");
       if (!panel || panel.querySelector("[data-atlas-workout-complete]")) return;
@@ -60,6 +69,7 @@ export default function AtlasWorkoutCompletionEnhancer() {
       const button = card.querySelector<HTMLButtonElement>("button");
       const activeDate = parseActiveDate();
       const completedDays = readCompletedDays();
+
       if (completedDays.includes(activeDate) && button) {
         button.textContent = "Kaydedildi ✓";
         button.disabled = true;
@@ -80,10 +90,26 @@ export default function AtlasWorkoutCompletionEnhancer() {
       panel.appendChild(card);
     };
 
-    enhance();
-    const observer = new MutationObserver(enhance);
+    const scheduleEnhance = () => {
+      const title = document.querySelector<HTMLElement>(".topbar h1")?.textContent?.trim() || "";
+      const activeDate = parseActiveDate();
+      const signature = `${title}|${activeDate}`;
+
+      if (signature === lastPathSignature && document.querySelector("[data-atlas-workout-complete]")) {
+        updateDateCard();
+        return;
+      }
+
+      lastPathSignature = signature;
+      window.requestAnimationFrame(enhance);
+    };
+
+    scheduleEnhance();
+
+    const observer = new MutationObserver(scheduleEnhance);
     observer.observe(document.body, { subtree: true, childList: true });
-    const timer = window.setInterval(enhance, 1000);
+
+    const timer = window.setInterval(updateDateCard, 60_000);
 
     return () => {
       observer.disconnect();
