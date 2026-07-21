@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./atlas-v6.css";
 import "./atlas-memory.css";
@@ -10,6 +10,7 @@ import "./atlas-cardio-dashboard.css";
 import "./atlas-sidebar-scroll.css";
 import "./atlas-japanese-dragon.css";
 import "./atlas-score-v2.css";
+import "./atlas-score-v3.css";
 import "./atlas-onboarding-persistence.css";
 import WorkoutNumberInputFix from "@/components/WorkoutNumberInputFix";
 import AtlasWorkoutCompletionEnhancer from "@/components/AtlasWorkoutCompletionEnhancer";
@@ -21,7 +22,7 @@ import AtlasCardioTracker from "@/components/AtlasCardioTracker";
 import AtlasCardioDashboardBridge from "@/components/AtlasCardioDashboardBridge";
 import AtlasSevenDayWeightChangeBridge from "@/components/AtlasSevenDayWeightChangeBridge";
 import AtlasSuggestionFreshnessBridge from "@/components/AtlasSuggestionFreshnessBridge";
-import AtlasScoreEngineV2 from "@/components/AtlasScoreEngineV2";
+import AtlasScoreEngineV3 from "@/components/AtlasScoreEngineV3";
 import AtlasOnboardingPersistenceBridge from "@/components/AtlasOnboardingPersistenceBridge";
 import AtlasDragonVideoLayer from "@/components/AtlasDragonVideoLayer";
 
@@ -37,16 +38,16 @@ const onboardingBootstrap = `
 })();
 `;
 
-// Production deployment trigger: 2026-07-21
 export const metadata: Metadata = {
   title: "ATLAS AI Coach",
   description: "Kişisel antrenman, beslenme ve gelişim takip sistemi",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    viewportFit: "cover",
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -67,7 +68,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <AtlasCardioDashboardBridge />
         <AtlasSevenDayWeightChangeBridge />
         <AtlasSuggestionFreshnessBridge />
-        <AtlasScoreEngineV2 />
+        <AtlasScoreEngineV3 />
         <AtlasOnboardingPersistenceBridge />
         {children}
       </body>
