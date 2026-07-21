@@ -3,7 +3,7 @@ import "./globals.css";
 import "./atlas-v6.css";
 import WorkoutNumberInputFix from "@/components/WorkoutNumberInputFix";
 import AtlasWorkoutCompletionEnhancer from "@/components/AtlasWorkoutCompletionEnhancer";
-import AtlasMemoryBridge from "@/components/AtlasMemoryBridge";
+import AtlasMemoryCenter from "@/components/AtlasMemoryCenter";
 
 export const metadata: Metadata = {
   title: "ATLAS AI Coach",
@@ -16,7 +16,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <WorkoutNumberInputFix />
         <AtlasWorkoutCompletionEnhancer />
-        <AtlasMemoryBridge />
+        <AtlasMemoryCenter />
         {children}
       </body>
     </html>
