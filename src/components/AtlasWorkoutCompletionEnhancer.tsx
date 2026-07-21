@@ -38,7 +38,7 @@ function parseActiveDate() {
   return input?.value || localToday();
 }
 
-function textValue(element: Element | null) {
+function textValue(element: Element | null | undefined) {
   if (!element) return "";
   if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement || element instanceof HTMLSelectElement) {
     return element.value.trim();
