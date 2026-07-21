@@ -9,6 +9,7 @@ import "./atlas-cardio.css";
 import "./atlas-cardio-dashboard.css";
 import "./atlas-sidebar-scroll.css";
 import "./atlas-japanese-dragon.css";
+import "./atlas-onboarding-persistence.css";
 import WorkoutNumberInputFix from "@/components/WorkoutNumberInputFix";
 import AtlasWorkoutCompletionEnhancer from "@/components/AtlasWorkoutCompletionEnhancer";
 import AtlasMemoryCenter from "@/components/AtlasMemoryCenter";
@@ -20,6 +21,7 @@ import AtlasCardioDashboardBridge from "@/components/AtlasCardioDashboardBridge"
 import AtlasSevenDayWeightChangeBridge from "@/components/AtlasSevenDayWeightChangeBridge";
 import AtlasSuggestionFreshnessBridge from "@/components/AtlasSuggestionFreshnessBridge";
 import AtlasDailyScoreBridge from "@/components/AtlasDailyScoreBridge";
+import AtlasOnboardingPersistenceBridge from "@/components/AtlasOnboardingPersistenceBridge";
 
 // Deployment retry marker: 2026-07-21
 export const metadata: Metadata = {
@@ -48,6 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <AtlasSevenDayWeightChangeBridge />
         <AtlasSuggestionFreshnessBridge />
         <AtlasDailyScoreBridge />
+        <AtlasOnboardingPersistenceBridge />
         {children}
       </body>
     </html>
