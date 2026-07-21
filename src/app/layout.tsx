@@ -23,6 +23,18 @@ import AtlasSuggestionFreshnessBridge from "@/components/AtlasSuggestionFreshnes
 import AtlasDailyScoreBridge from "@/components/AtlasDailyScoreBridge";
 import AtlasOnboardingPersistenceBridge from "@/components/AtlasOnboardingPersistenceBridge";
 
+const onboardingBootstrap = `
+(() => {
+  try {
+    const completed = localStorage.getItem("atlas-onboarding-complete-v1") === "1";
+    const advanced = JSON.parse(localStorage.getItem("atlas-advanced-v1") || "null");
+    if (completed || advanced?.onboardingComplete === true) {
+      document.documentElement.classList.add("atlas-onboarding-complete");
+    }
+  } catch {}
+})();
+`;
+
 // Deployment retry marker: 2026-07-21
 export const metadata: Metadata = {
   title: "ATLAS AI Coach",
@@ -38,6 +50,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="tr">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: onboardingBootstrap }} />
+      </head>
       <body>
         <WorkoutNumberInputFix />
         <AtlasWorkoutCompletionEnhancer />
