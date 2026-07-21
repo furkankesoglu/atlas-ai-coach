@@ -1,0 +1,104 @@
+/* ATLAS mobile app experience */
+.atlas-mobile-nav,.atlas-mobile-sheet-backdrop{display:none}
+
+@media(max-width:1000px){
+  html{background:#070708}
+  body{padding-bottom:calc(88px + env(safe-area-inset-bottom));overscroll-behavior-y:contain}
+  .app-shell{padding-bottom:0!important}
+  .sidebar{position:static!important;height:auto!important;padding:12px 14px 8px!important;border:0!important;background:rgba(7,8,10,.98)!important}
+  .sidebar nav{display:none!important}
+  .brand{margin:0!important}
+  .brand small{display:none}
+  .account-area,.profile-card{display:none!important}
+  .content{padding:10px 12px 28px!important;width:100%!important}
+  .motivation-marquee{display:none!important}
+  .topbar{position:sticky;top:0;z-index:35;margin:0 -12px 14px!important;padding:12px 12px 10px!important;background:rgba(7,8,10,.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .topbar h1{font-size:24px!important;margin:4px 0 0!important}
+  .topbar .eyebrow{font-size:9px!important;letter-spacing:1.3px!important}
+  .topbar-actions{display:flex!important;gap:8px!important}
+  .time-card{display:none!important}
+  .coach-button{min-height:42px!important;padding:10px 13px!important;font-size:12px!important}
+
+  .hero-card{display:grid!important;grid-template-columns:1fr!important;padding:18px!important;margin-bottom:12px!important}
+  .hero-card h2{font-size:27px!important;line-height:1.08!important}
+  .hero-card p:last-child{font-size:14px;line-height:1.55}
+  .score{text-align:left!important;min-width:0!important;display:flex;align-items:baseline;gap:10px}
+  .score strong{font-size:42px!important}
+
+  .metric-grid,.action-grid,.two-column,.three-column,.nutrition-layout,.coach-layout,.history-layout,.history-block-grid,.small-grid,.library-grid,.record-grid,.photo-grid,.photo-compare,.form-grid,.compact-form,.profile-fields{grid-template-columns:minmax(0,1fr)!important}
+  .metric-grid{gap:10px!important}
+  .metric-card,.panel,.action-card,.coach-panel{border-radius:16px!important}
+  .metric-card{padding:15px!important}
+  .metric-card strong{font-size:23px!important}
+  .panel{padding:16px!important}
+  .panel h3{font-size:21px!important}
+  .panel-head{flex-direction:column!important;align-items:stretch!important}
+
+  .action-grid{gap:10px!important}
+  .action-card{min-height:96px;padding:16px!important}
+  .action-card strong{font-size:16px!important}
+
+  input,select,textarea{font-size:16px!important;min-height:50px!important;border-radius:12px!important}
+  textarea{width:100%;background:#0d0f14;border:1px solid rgba(255,255,255,.09);color:var(--text);padding:12px;outline:none}
+  button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+  .primary,.ghost-button,.toggle-chip,.upload-button,.coach-button{min-height:46px!important}
+  .toolbar-group,.template-row,.toggle-row{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%}
+
+  .exercise{padding:14px!important;border-radius:16px!important}
+  .exercise-title{flex-direction:column!important}
+  .exercise-actions{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%}
+  .set-header{display:none!important}
+  .set-row{display:grid!important;grid-template-columns:32px 1fr 1fr!important;gap:8px!important;padding:10px!important;border:1px solid rgba(255,255,255,.06);border-radius:13px;background:#0b0d11;margin-top:9px!important}
+  .set-row>*:nth-child(4){grid-column:2/3}
+  .set-row>*:nth-child(5){grid-column:3/4}
+  .set-row input{min-width:0!important}
+
+  .entry-row{flex-direction:column!important;align-items:stretch!important;gap:12px!important}
+  .entry-macros{justify-content:space-between!important;width:100%}
+  .macro-ring{width:min(220px,66vw)!important;height:min(220px,66vw)!important}
+
+  .chat-shell{min-height:calc(100dvh - 154px)!important;padding:12px!important}
+  .chat-messages{min-height:52vh!important;max-height:none!important;padding:4px!important}
+  .chat-bubble{max-width:94%!important;font-size:14px!important;line-height:1.55!important}
+  .chat-input-row{position:sticky!important;bottom:0!important;z-index:8!important;display:grid!important;grid-template-columns:1fr auto!important;gap:8px!important;padding-top:10px!important;background:linear-gradient(180deg,transparent,#121316 24%)!important}
+  .chat-suggestion-row{overflow-x:auto!important;flex-wrap:nowrap!important;padding-bottom:4px!important;scrollbar-width:none}
+  .chat-suggestion-row button{flex:0 0 auto!important;white-space:nowrap!important}
+
+  .history-sidebar{max-height:none!important}
+  .history-date-list{display:flex!important;overflow-x:auto!important;gap:8px!important;padding-bottom:6px!important;scrollbar-width:none}
+  .history-date{flex:0 0 auto!important;min-width:145px!important}
+
+  .advanced-nav{display:flex!important;overflow-x:auto!important;flex-wrap:nowrap!important;padding-bottom:6px!important;scrollbar-width:none}
+  .advanced-nav button{flex:0 0 auto!important;white-space:nowrap!important}
+
+  .atlas-memory-button{right:14px!important;bottom:calc(92px + env(safe-area-inset-bottom))!important}
+  .atlas-memory-panel{left:10px!important;right:10px!important;bottom:calc(88px + env(safe-area-inset-bottom))!important;width:auto!important;max-height:72dvh!important;border-radius:20px!important}
+
+  .atlas-mobile-nav{position:fixed;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));z-index:300;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:7px;border:1px solid rgba(255,255,255,.09);border-radius:20px;background:rgba(10,11,14,.96);backdrop-filter:blur(20px);box-shadow:0 18px 70px rgba(0,0,0,.65)}
+  .atlas-mobile-nav button{border:0;background:transparent;color:#8f939d;display:grid;place-items:center;gap:3px;min-height:58px;border-radius:14px;padding:5px 2px}
+  .atlas-mobile-nav button.active{color:var(--accent);background:rgba(185,255,55,.09)}
+  .atlas-mobile-nav-icon{font-size:18px;font-weight:900;line-height:1}
+  .atlas-mobile-nav small{font-size:9px;line-height:1.1;white-space:nowrap}
+
+  .atlas-mobile-sheet-backdrop{position:fixed;inset:0;z-index:400;display:flex;align-items:flex-end;background:rgba(0,0,0,.66);backdrop-filter:blur(7px)}
+  .atlas-mobile-sheet{width:100%;max-height:84dvh;overflow:auto;padding:8px 14px calc(18px + env(safe-area-inset-bottom));border-radius:24px 24px 0 0;border:1px solid rgba(255,255,255,.08);background:#111318;box-shadow:0 -24px 80px rgba(0,0,0,.6)}
+  .atlas-mobile-sheet-handle{width:44px;height:5px;border-radius:999px;background:#343740;margin:2px auto 14px}
+  .atlas-mobile-sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .atlas-mobile-sheet-head div{display:grid;gap:4px}
+  .atlas-mobile-sheet-head span{font-size:10px;letter-spacing:1.5px;color:var(--accent);font-weight:900}
+  .atlas-mobile-sheet-head strong{font-size:22px}
+  .atlas-mobile-sheet-head>button{width:42px;height:42px;border:1px solid rgba(255,255,255,.08);border-radius:50%;background:#191c22;color:#fff;font-size:25px}
+  .atlas-mobile-sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+  .atlas-mobile-sheet-grid button{min-height:86px;padding:10px 6px;border:1px solid rgba(255,255,255,.07);border-radius:16px;background:#17191f;color:#d8dbe1;display:grid;place-items:center;gap:7px;text-align:center}
+  .atlas-mobile-sheet-grid button.active{border-color:rgba(185,255,55,.35);background:rgba(185,255,55,.09);color:var(--accent)}
+  .atlas-mobile-sheet-grid button span{font-size:20px;font-weight:900}
+  .atlas-mobile-sheet-grid button strong{font-size:11px;line-height:1.2}
+}
+
+@media(max-width:390px){
+  .content{padding-left:9px!important;padding-right:9px!important}
+  .topbar{margin-left:-9px!important;margin-right:-9px!important;padding-left:9px!important;padding-right:9px!important}
+  .atlas-mobile-nav{left:5px;right:5px;gap:2px;padding:6px}
+  .atlas-mobile-nav small{font-size:8px}
+  .atlas-mobile-sheet-grid{grid-template-columns:repeat(2,1fr)}
+}
