@@ -1,0 +1,139 @@
+.atlas-nutrition-action-layer{
+  position:fixed;
+  inset:0;
+  z-index:260;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:rgba(3,4,6,.72);
+  backdrop-filter:blur(12px);
+}
+
+.atlas-nutrition-action-card{
+  width:min(620px,100%);
+  max-height:min(760px,calc(100dvh - 40px));
+  overflow:auto;
+  padding:20px;
+  border:1px solid rgba(185,255,55,.34);
+  border-radius:20px;
+  background:
+    radial-gradient(circle at top left,rgba(185,255,55,.11),transparent 38%),
+    linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,0)),
+    #0c0f0d;
+  box-shadow:0 30px 100px rgba(0,0,0,.62),inset 3px 0 var(--accent);
+}
+
+.atlas-nutrition-action-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.atlas-nutrition-action-head span{
+  color:var(--accent);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.atlas-nutrition-action-head h3{
+  margin:6px 0 0;
+  color:#f5f7f8;
+  font-size:24px;
+}
+
+.atlas-nutrition-action-head>button{
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+  background:#15181a;
+  color:#fff;
+  font-size:24px;
+}
+
+.atlas-nutrition-meal-list{
+  display:grid;
+  gap:10px;
+}
+
+.atlas-nutrition-meal{
+  display:grid;
+  grid-template-columns:78px minmax(0,1fr);
+  gap:14px;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+}
+
+.atlas-nutrition-meal>strong{
+  color:var(--accent);
+  font-size:16px;
+}
+
+.atlas-nutrition-meal>div{
+  display:grid;
+  gap:7px;
+}
+
+.atlas-nutrition-meal span{
+  color:#e6e8eb;
+  line-height:1.4;
+}
+
+.atlas-nutrition-action-buttons{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:10px;
+  margin-top:18px;
+}
+
+.atlas-nutrition-action-buttons button{
+  min-height:48px;
+}
+
+.atlas-nutrition-action-notice{
+  padding:16px;
+  color:#f4f6f7;
+  font-weight:800;
+  text-align:center;
+}
+
+@media(max-width:720px){
+  .atlas-nutrition-action-layer{
+    align-items:end;
+    padding:0;
+  }
+
+  .atlas-nutrition-action-card{
+    width:100%;
+    max-height:88dvh;
+    padding:18px 16px calc(18px + env(safe-area-inset-bottom));
+    border-radius:24px 24px 0 0;
+  }
+
+  .atlas-nutrition-action-head h3{
+    font-size:21px;
+  }
+
+  .atlas-nutrition-meal{
+    grid-template-columns:64px minmax(0,1fr);
+    padding:13px;
+  }
+
+  .atlas-nutrition-action-buttons{
+    position:sticky;
+    bottom:0;
+    grid-template-columns:1fr;
+    padding-top:12px;
+    background:linear-gradient(180deg,transparent,#0c0f0d 20%);
+  }
+
+  .atlas-nutrition-action-buttons .primary{
+    order:-1;
+  }
+}
