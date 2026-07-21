@@ -21,7 +21,7 @@ import AtlasCardioTracker from "@/components/AtlasCardioTracker";
 import AtlasCardioDashboardBridge from "@/components/AtlasCardioDashboardBridge";
 import AtlasSevenDayWeightChangeBridge from "@/components/AtlasSevenDayWeightChangeBridge";
 import AtlasSuggestionFreshnessBridge from "@/components/AtlasSuggestionFreshnessBridge";
-import AtlasDailyScoreBridge from "@/components/AtlasDailyScoreBridge";
+import AtlasScoreEngineV2 from "@/components/AtlasScoreEngineV2";
 import AtlasOnboardingPersistenceBridge from "@/components/AtlasOnboardingPersistenceBridge";
 import AtlasDragonVideoLayer from "@/components/AtlasDragonVideoLayer";
 
@@ -66,7 +66,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <AtlasCardioDashboardBridge />
         <AtlasSevenDayWeightChangeBridge />
         <AtlasSuggestionFreshnessBridge />
-        <AtlasDailyScoreBridge />
+        <AtlasScoreEngineV2 />
         <AtlasOnboardingPersistenceBridge />
         {children}
       </body>
