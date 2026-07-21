@@ -35,8 +35,9 @@ export default function AtlasCardioDashboardBridge() {
   useEffect(() => {
     const refresh = () => {
       setEntries(readEntries());
-      const title = document.querySelector<HTMLElement>(".topbar h1")?.textContent?.trim();
-      setTarget(title === "Dashboard" ? document.querySelector<HTMLElement>(".content") : null);
+      const title = document.querySelector<HTMLElement>(".topbar h1")?.textContent?.trim() || "";
+      const isDashboard = title === "Dashboard" || title === "Kontrol Merkezi";
+      setTarget(isDashboard ? document.querySelector<HTMLElement>(".content") : null);
     };
 
     refresh();
