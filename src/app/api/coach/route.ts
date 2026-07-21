@@ -131,18 +131,24 @@ Genel kurallar:
 - Her cevabın sonunda soru sorma.
 - Kullanıcıya aynı onay sorusunu tekrar tekrar sorma.
 
+ATLAS hafızası:
+- İstek gövdesindeki context.aiMemory alanı kullanıcının önceki ağrı, toparlanma ve tercih notlarını içerir.
+- Bu hafızayı yalnızca mevcut soruyla doğrudan ilgiliyse kullan.
+- Eski bir ağrı notu varsa kesin olarak hâlâ devam ediyor deme; "daha önce belirttiğin" diye ifade et.
+- Ağrı veya sakatlık söz konusuysa teşhis koyma. Daha güvenli egzersiz seçimi, yük azaltma ve profesyonel değerlendirme önerisiyle sınırlı kal.
+
 Antrenman taslağı kuralı:
 - Mesajda hareket adlarıyla birlikte set, kilogram ve tekrar bilgileri varsa bunu antrenman taslağı olarak algıla.
 - Kullanıcıdan metinle "onaylıyorum" yazmasını isteme.
 - Görünür cevap yalnızca şu olsun: "Antrenman taslağını hazırladım. Aşağıdaki düğmeden onaylayıp sisteme ekleyebilirsin."
 - Görünür cevabın sonuna mutlaka tek satır halinde şu etiketi ekle:
-<ATLAS_ACTION>{"type":"create_workout","label":"PULL DAY 2 • 8 hareket • 24 set","payload":{"date":"YYYY-MM-DD","split":"Pull","name":"PULL DAY 2","exercises":[{"name":"Wide Grip Lat Pulldown","sets":[{"weight":16.5,"reps":12,"rir":2}]}]}}</ATLAS_ACTION>
+<ATLAS_ACTION>{"type":"create_workout","label":"PULL DAY 2","payload":{"date":"YYYY-MM-DD","split":"Pull","name":"PULL DAY 2","exercises":[{"name":"Wide Grip Lat Pulldown","sets":[{"weight":16.5,"reps":12,"rir":2}]}]}}</ATLAS_ACTION>
 - Etiket içindeki JSON geçerli olmalı; markdown kod bloğu kullanma.
 - Tarih için context.activeDate değerini kullan.
 - Split yalnızca Push, Pull, Legs veya Other olsun.
 - RIR belirtilmediyse 2 kullan.
 - Bütün hareketleri ve bütün setleri eksiksiz aktar.
-- label içinde toplam hareket ve toplam set sayısını doğru yaz.
+- label değerine yalnızca antrenman adını yaz; hareket, set ve süre özetini sistem otomatik oluşturur.
 `;
 }
 
@@ -150,6 +156,7 @@ function buildAnalysisInstructions() {
   return `
 Sen ATLAS AI Coach'sun.
 Kullanıcının check-in, beslenme, supplement, antrenman ve ilerleme kayıtlarını değerlendir.
+İstek gövdesindeki context.aiMemory alanında önceki ağrı, toparlanma ve tercih notları bulunabilir. Yalnızca analizle ilgiliyse kullan ve eski notları güncel kesin bilgi gibi sunma.
 Türkçe, net, motive edici ve gerçekçi konuş.
 Eksik bilgileri uydurma, tıbbi teşhis koyma, ilaç veya doz önerme.
 En fazla 250 kelime kullan.
@@ -282,12 +289,23 @@ function normaliseAction(action: ProposedWorkoutAction): ProposedWorkoutAction {
   }));
 
   const setCount = exercises.reduce((total, exercise) => total + exercise.sets.length, 0);
+  const estimatedMinutes = estimateWorkoutMinutes(exercises.length, setCount);
+  const workoutName = action.payload.name.trim() || action.label.trim() || "ATLAS Antrenmanı";
 
   return {
     type: "create_workout",
-    label: `${action.payload.name} • ${exercises.length} hareket • ${setCount} set`,
-    payload: { ...action.payload, exercises },
+    label: `${workoutName} • ${exercises.length} hareket • ${setCount} set • ~${estimatedMinutes} dk`,
+    payload: {
+      ...action.payload,
+      name: workoutName,
+      exercises,
+    },
   };
+}
+
+function estimateWorkoutMinutes(exerciseCount: number, setCount: number): number {
+  const raw = setCount * 2.25 + exerciseCount * 2.5 + 8;
+  return Math.max(20, Math.round(raw / 5) * 5);
 }
 
 function isValidWorkoutAction(value: unknown): value is ProposedWorkoutAction {
