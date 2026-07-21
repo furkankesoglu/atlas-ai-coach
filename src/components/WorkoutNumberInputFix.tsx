@@ -11,14 +11,18 @@ export default function WorkoutNumberInputFix() {
     }
 
     function handleFocus(event: FocusEvent) {
-      if (!isWorkoutNumberInput(event.target)) return;
-      window.requestAnimationFrame(() => event.target.select());
+      const input = event.target;
+      if (!isWorkoutNumberInput(input)) return;
+
+      window.requestAnimationFrame(() => {
+        input.select();
+      });
     }
 
     function handleKeyDown(event: KeyboardEvent) {
-      if (!isWorkoutNumberInput(event.target)) return;
-
       const input = event.target;
+      if (!isWorkoutNumberInput(input)) return;
+
       const allSelected = input.selectionStart === 0 && input.selectionEnd === input.value.length;
       const clearingZero = (event.key === "Backspace" || event.key === "Delete") &&
         (input.value === "0" || allSelected);
@@ -27,6 +31,7 @@ export default function WorkoutNumberInputFix() {
 
       event.preventDefault();
       input.value = "";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
     }
 
     document.addEventListener("focusin", handleFocus);
