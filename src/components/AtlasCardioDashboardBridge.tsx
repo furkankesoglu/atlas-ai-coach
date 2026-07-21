@@ -33,21 +33,31 @@ export default function AtlasCardioDashboardBridge() {
   const [entries, setEntries] = useState<CardioEntry[]>([]);
 
   useEffect(() => {
+    let lastSerialized = "";
+    let lastTarget: HTMLElement | null = null;
+
     const refresh = () => {
-      setEntries(readEntries());
       const title = document.querySelector<HTMLElement>(".topbar h1")?.textContent?.trim() || "";
       const isDashboard = title === "Dashboard" || title === "Kontrol Merkezi";
-      setTarget(isDashboard ? document.querySelector<HTMLElement>(".content") : null);
+      const nextTarget = isDashboard ? document.querySelector<HTMLElement>(".content") : null;
+      if (nextTarget !== lastTarget) {
+        lastTarget = nextTarget;
+        setTarget(nextTarget);
+      }
+
+      const nextEntries = readEntries();
+      const serialized = JSON.stringify(nextEntries);
+      if (serialized !== lastSerialized) {
+        lastSerialized = serialized;
+        setEntries(nextEntries);
+      }
     };
 
     refresh();
-    const observer = new MutationObserver(refresh);
-    observer.observe(document.body, { subtree: true, childList: true });
-    const timer = window.setInterval(refresh, 1000);
+    const timer = window.setInterval(refresh, 750);
     window.addEventListener("storage", refresh);
 
     return () => {
-      observer.disconnect();
       window.clearInterval(timer);
       window.removeEventListener("storage", refresh);
     };
