@@ -8,6 +8,7 @@ import "./atlas-supplement-action.css";
 import "./atlas-cardio.css";
 import "./atlas-cardio-dashboard.css";
 import "./atlas-sidebar-scroll.css";
+import "./atlas-japanese-dragon.css";
 import WorkoutNumberInputFix from "@/components/WorkoutNumberInputFix";
 import AtlasWorkoutCompletionEnhancer from "@/components/AtlasWorkoutCompletionEnhancer";
 import AtlasMemoryCenter from "@/components/AtlasMemoryCenter";
