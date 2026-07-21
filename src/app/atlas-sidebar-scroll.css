@@ -1,0 +1,40 @@
+/* Keep every sidebar action and the profile card reachable on short screens. */
+@media (min-width: 1001px) {
+  .sidebar {
+    height: 100dvh !important;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    padding-bottom: 32px !important;
+  }
+
+  .sidebar nav,
+  .account-area,
+  .profile-card {
+    flex-shrink: 0;
+  }
+
+  .profile-card {
+    margin-top: 18px !important;
+    padding-bottom: 12px;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .sidebar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(185, 255, 55, 0.32);
+  }
+}
