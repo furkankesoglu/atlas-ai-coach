@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./atlas-v6.css";
 import WorkoutNumberInputFix from "@/components/WorkoutNumberInputFix";
+import AtlasWorkoutCompletionEnhancer from "@/components/AtlasWorkoutCompletionEnhancer";
 
 export const metadata: Metadata = {
   title: "ATLAS AI Coach",
@@ -13,6 +14,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="tr">
       <body>
         <WorkoutNumberInputFix />
+        <AtlasWorkoutCompletionEnhancer />
         {children}
       </body>
     </html>
