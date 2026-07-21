@@ -9,6 +9,7 @@ import "./atlas-cardio.css";
 import "./atlas-cardio-dashboard.css";
 import "./atlas-sidebar-scroll.css";
 import "./atlas-japanese-dragon.css";
+import "./atlas-score-v2.css";
 import "./atlas-onboarding-persistence.css";
 import WorkoutNumberInputFix from "@/components/WorkoutNumberInputFix";
 import AtlasWorkoutCompletionEnhancer from "@/components/AtlasWorkoutCompletionEnhancer";
@@ -22,6 +23,7 @@ import AtlasSevenDayWeightChangeBridge from "@/components/AtlasSevenDayWeightCha
 import AtlasSuggestionFreshnessBridge from "@/components/AtlasSuggestionFreshnessBridge";
 import AtlasDailyScoreBridge from "@/components/AtlasDailyScoreBridge";
 import AtlasOnboardingPersistenceBridge from "@/components/AtlasOnboardingPersistenceBridge";
+import AtlasDragonVideoLayer from "@/components/AtlasDragonVideoLayer";
 
 const onboardingBootstrap = `
 (() => {
@@ -35,7 +37,6 @@ const onboardingBootstrap = `
 })();
 `;
 
-// Deployment retry marker: 2026-07-21T10:00+03:00
 export const metadata: Metadata = {
   title: "ATLAS AI Coach",
   description: "Kişisel antrenman, beslenme ve gelişim takip sistemi",
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: onboardingBootstrap }} />
       </head>
       <body>
+        <AtlasDragonVideoLayer />
         <WorkoutNumberInputFix />
         <AtlasWorkoutCompletionEnhancer />
         <AtlasMemoryCenter />
